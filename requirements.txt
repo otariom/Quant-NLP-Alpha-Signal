@@ -1,0 +1,27 @@
+# Core
+pandas
+numpy
+requests
+
+# Data
+yfinance
+
+# NLP / ML
+transformers
+torch
+
+# API
+fastapi
+uvicorn
+
+# UI
+streamlit
+
+# MLOps
+mlflow
+
+# Utils
+python-dotenv
+
+# Testing
+pytest

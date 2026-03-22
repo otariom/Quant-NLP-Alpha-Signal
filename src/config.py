@@ -1,21 +1,34 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load environment variables (for local development)
 load_dotenv()
 
 
 class Config:
     """
-    Central configuration class for the project.
-    Controls API keys, model parameters, and system settings.
+    Central configuration class.
+
+    Works for:
+    - Local (.env)
+    - Cloud (Streamlit Secrets / environment variables)
     """
 
     # ========================
-    # API KEYS (from .env)
+    # API KEYS
     # ========================
     NEWSDATA_KEY = os.getenv("NEWSDATA_KEY")
     ALPHAVANTAGE_KEY = os.getenv("ALPHAVANTAGE_KEY")
+
+    # ========================
+    # VALIDATION (IMPORTANT)
+    # ========================
+    def validate(self):
+        if not self.NEWSDATA_KEY:
+            raise ValueError("NEWSDATA_KEY not found. Set it in .env or Streamlit Secrets.")
+
+        if not self.ALPHAVANTAGE_KEY:
+            raise ValueError("ALPHAVANTAGE_KEY not found. Set it in .env or Streamlit Secrets.")
 
     # ========================
     # DATA SETTINGS
@@ -58,3 +71,6 @@ class Config:
 
 # Singleton instance
 config = Config()
+
+# 🔥 Validate config at startup
+config.validate()
